@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VM Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .iframe-container {
+            width: 90%;
+            max-width: 1200px;
+            height: 90%;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            .iframe-container {
+                height: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="iframe-container">
+        <iframe id="contentFrame" src=""></iframe>
+    </div>
+    <script>
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        function getIframeSrc(vm) {
+            // Replace with your noVNC URL and VM parameters
+            return `http://yourserver.com/novnc/vnc.html?host=localhost&port=5900&path=${vm}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const vmName = getQueryParameter('vm');
+            const iframeSrc = getIframeSrc(vmName);
+            document.getElementById('contentFrame').src = iframeSrc;
+        });
+    </script>
+</body>
+</html>

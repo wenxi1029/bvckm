@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+        }
+        .box {
+            width: 100%;
+            max-width: 200px;
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-align: center;
+        }
+        .box:hover {
+            transform: scale(1.05);
+        }
+        .box img {
+            width: 100%;
+            height: auto;
+        }
+        .box-description {
+            padding: 10px;
+            text-align: center;
+        }
+        .box-description h2 {
+            margin: 10px 0;
+        }
+        .box-description p {
+            margin: 0;
+            color: #555;
+        }
+        @media (max-width: 768px) {
+            .box {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard</h1>
+        <div class="box" onclick="startVM('vm1')">
+            <img src="images/kali.png">
+            <div class="Kali VM">
+                <h2>Kali VM</h2>
+            </div>
+        </div>
+        <div class="box" onclick="startVM('vm2')">
+            <img src="images/Tracelabs.png">
+            <div class="box-description">
+                <h2>TraceLabs VM</h2>
+            </div>
+        </div>
+        <div class="box" onclick="startVM('vm3')">
+            <img src="image3.jpg" alt="Box 3">
+            <div class="box-description">
+                <h2>VM 3</h2>
+                <p>Description for VM 3.</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function startVM(vmName) {
+            fetch(`/start-vm?vm=${vmName}`)
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = `iframe.html?vm=${vmName}`;
+                    } else {
+                        alert('Failed to start VM');
+                    }
+                });
+        }
+    </script>
+</body>
+</html>
